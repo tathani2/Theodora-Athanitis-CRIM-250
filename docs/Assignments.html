@@ -397,20 +397,51 @@ library(datasets)</code></pre>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
 <p>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</p>
+<pre class="r"><code>mean(dat$Murder)</code></pre>
+<pre><code>## [1] 7.788</code></pre>
+<pre class="r"><code>median(dat$Murder)</code></pre>
+<pre><code>## [1] 7.25</code></pre>
+<pre class="r"><code>quantile(dat$Murder)</code></pre>
+<pre><code>##     0%    25%    50%    75%   100% 
+##  0.800  4.075  7.250 11.250 17.400</code></pre>
+<p><strong>Answer: The mean and median of “Murder” are 7.788 and 7.25, respectively. The mean is the average of all the data points (i.e. the sum of all the data values divided by the number of values). The median is the middle value when the data is arranged in order and it provides information regarding robustness. A quartile is a type of quantile that divides the data set into 4 (roughly) equally-sized parts (i.e. quarters) when the data is arranged from smallest to largest value. Therefore, quartiles serve to measure the spread of values above and below the mean. R gives us the 1st and 3rd quartiles because the 2nd quartile is the same as the median. As you can see in the output above, the value associated with 50% is the same as the median (because 50% of the values in the data set are above this value). </strong></p>
 </div>
 <div id="problem-7" class="section level3">
 <h3>Problem 7</h3>
 <p>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three.</p>
+<pre class="r"><code>#Assault
+mean(dat$Assault)</code></pre>
+<pre><code>## [1] 170.76</code></pre>
+<pre class="r"><code>median(dat$Assault)</code></pre>
+<pre><code>## [1] 159</code></pre>
+<pre class="r"><code>quantile(dat$Assault)</code></pre>
+<pre><code>##   0%  25%  50%  75% 100% 
+##   45  109  159  249  337</code></pre>
+<pre class="r"><code>#Rape
+mean(dat$Rape)</code></pre>
+<pre><code>## [1] 21.232</code></pre>
+<pre class="r"><code>median(dat$Rape)</code></pre>
+<pre><code>## [1] 20.1</code></pre>
+<pre class="r"><code>quantile(dat$Rape)</code></pre>
+<pre><code>##     0%    25%    50%    75%   100% 
+##  7.300 15.075 20.100 26.175 46.000</code></pre>
+<pre class="r"><code>par(mfrow=c(3,1))
+hist(dat$Murder, main=&quot;Frequency of Murder Arrest Rates in the United States&quot;, xlab = &quot;Murder Arrests per 100,000&quot;, border=&quot;black&quot;, col = &quot;Purple&quot;)
+hist(dat$Assault, main=&quot;Frequency of Assault Arrest Rates in the United States&quot;, xlab = &quot;Assault Arrests per 100,000&quot;, border=&quot;black&quot;, col = &quot;Red&quot;)
+hist(dat$Rape, main=&quot;Frequency of Rape Arrest Rates in the United States&quot;, xlab = &quot;Rape Arrests per 100,000&quot;, border=&quot;black&quot;, col = &quot;Green&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
-<p>Answer:</p>
+<p><strong>Answer: The R command ‘par’ can be used to combine plots into one cohesive graph. </strong></p>
 <p>What can you learn from plotting the histograms together?</p>
-<p>Answer:</p>
+<p><strong>Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a normal distribution. </strong></p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
 <p>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</p>
 <p>Run this code:</p>
-<pre class="r"><code>library(&#39;maps&#39;) 
+<pre class="r"><code>#install.packages(&quot;maps&quot;)
+#install.packages(&quot;ggplot2&quot;)
+library(&#39;maps&#39;) 
 library(&#39;ggplot2&#39;) 
 
 ggplot(dat, aes(map_id=state, fill=Murder)) + 

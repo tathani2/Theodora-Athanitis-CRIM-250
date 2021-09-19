@@ -93,24 +93,45 @@ hist(dat$Murder, main="Frequency of Murder Arrest Rates in the United States", x
 Please summarize `Murder` quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?
 
 ```{r}
-
+mean(dat$Murder)
+median(dat$Murder)
+quantile(dat$Murder)
 ```
+
+**Answer: The mean and median of "Murder" are 7.788 and 7.25, respectively. The mean is the average of all the data points (i.e. the sum of all the data values divided by the number of values). The median is the middle value when the data is arranged in order and it provides information regarding robustness. A quartile is a type of quantile that divides the data set into 4 (roughly) equally-sized parts (i.e. quarters) when the data is arranged from smallest to largest value. Therefore, quartiles serve to measure the spread of values above and below the mean. R  gives us the 1st and 3rd quartiles because the 2nd quartile is the same as the median. As you can see in the output above, the value associated with 50% is the same as the median (because 50% of the values in the data set are above this value). **
 
 ### Problem 7
 
 Repeat the same steps you followed for `Murder`, for the variables `Assault` and `Rape`. Now plot all three histograms together. You can do this by using the command `par(mfrow=c(3,1))` and then plotting each of the three. 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 8}
+```{r}
+#Assault
+mean(dat$Assault)
+median(dat$Assault)
+quantile(dat$Assault)
+```
 
+```{r}
+#Rape
+mean(dat$Rape)
+median(dat$Rape)
+quantile(dat$Rape)
+```
+
+```{r, echo = TRUE, fig.width = 5, fig.height = 8}
+par(mfrow=c(3,1))
+hist(dat$Murder, main="Frequency of Murder Arrest Rates in the United States", xlab = "Murder Arrests per 100,000", border="black", col = "Purple")
+hist(dat$Assault, main="Frequency of Assault Arrest Rates in the United States", xlab = "Assault Arrests per 100,000", border="black", col = "Red")
+hist(dat$Rape, main="Frequency of Rape Arrest Rates in the United States", xlab = "Rape Arrests per 100,000", border="black", col = "Green")
 ```
 
 What does the command par do, in your own words (you can look this up by asking R `?par`)?
 
-Answer:
+**Answer: The R command 'par' can be used to combine plots into one cohesive graph. **
 
 What can you learn from plotting the histograms together?
 
-Answer:
+**Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a normal distribution. **
   
 ### Problem 8
 
@@ -119,6 +140,8 @@ In the console below (not in text), type `install.packages("maps")` and press En
 Run this code:
 
 ```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
+#install.packages("maps")
+#install.packages("ggplot2")
 library('maps') 
 library('ggplot2') 
 
