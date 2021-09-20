@@ -45,7 +45,7 @@ dat<-USArrests
 
 Use this command to make the state names into a new variable called State. 
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 dat$state<-tolower(rownames(USArrests))
 ```
 
@@ -69,7 +69,7 @@ What type of variable (from the DVB chapter) is `Murder`?
 What R Type of variable is it?
 
 ```{r}
-typeof("Murder")
+class(dat$Murder)
 ```
 
 **Answer: The typeof() function just tells us what type of object is within the parenthesis. Therefore, although the R output states that "Murder" is a character, it is actually a numeric variable**
@@ -77,6 +77,8 @@ typeof("Murder")
 ### Problem 4
 
 What information is contained in this dataset, in general? What do the numbers mean? 
+
+?USArrests
 
 ```{r}
 head(dat)
@@ -122,6 +124,8 @@ median(dat$Rape)
 quantile(dat$Rape)
 ```
 
+?par
+
 ```{r, echo = TRUE, fig.width = 5, fig.height = 8}
 par(mfrow=c(3,1))
 hist(dat$Murder, main="Frequency of Murder Arrest Rates in the United States", xlab = "Murder Arrests per 100,000", border="black", col = "Purple")
@@ -135,7 +139,7 @@ What does the command par do, in your own words (you can look this up by asking 
 
 What can you learn from plotting the histograms together?
 
-**Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a normal distribution. **
+**Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a bimodal distribution. **
   
 ### Problem 8
 
@@ -143,16 +147,15 @@ In the console below (not in text), type `install.packages("maps")` and press En
 
 Run this code:
 
-```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
+```{r, eval = TRUE, fig.width = 7.5, fig.height = 4}
 #install.packages("maps") 
 #this installs the maps package, which allows the program to draw geographical maps.
 #install.packages("ggplot2") 
 #this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
-library('maps')  
-#this line loads the newly-installed "maps" packages
-library('ggplot2') 
+library(maps)  
+#this line loads the newly-installed "maps" package
+library(ggplot2) 
 #this line loads the newly-installed "ggplot2" package
-
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data("state")) + 
   expand_limits(x=map_data("state")$long, y=map_data("state")$lat)

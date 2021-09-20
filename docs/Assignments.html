@@ -364,7 +364,7 @@ library(datasets)</code></pre>
 <p>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</p>
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
 <pre class="r"><code>names(dat)</code></pre>
-<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
+<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;     &quot;state&quot;</code></pre>
 <p><strong>Answer: The variables contained in the dataset are Murder, Assualt, UrbanPop (Urban Population), Rape, and state. </strong></p>
 </div>
 <div id="problem-3" class="section level3">
@@ -372,21 +372,22 @@ library(datasets)</code></pre>
 <p>What type of variable (from the DVB chapter) is <code>Murder</code>?</p>
 <p><strong>Answer: According to the DVB chapter, Murder is a quantitative variable because it measures how many murder arrests were made per 100,000 people</strong></p>
 <p>What R Type of variable is it?</p>
-<pre class="r"><code>typeof(&quot;Murder&quot;)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(dat$Murder)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p><strong>Answer: The typeof() function just tells us what type of object is within the parenthesis. Therefore, although the R output states that “Murder” is a character, it is actually a numeric variable</strong></p>
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
 <p>What information is contained in this dataset, in general? What do the numbers mean?</p>
+<p>?USArrests</p>
 <pre class="r"><code>head(dat)</code></pre>
-<pre><code>##            Murder Assault UrbanPop Rape
-## Alabama      13.2     236       58 21.2
-## Alaska       10.0     263       48 44.5
-## Arizona       8.1     294       80 31.0
-## Arkansas      8.8     190       50 19.5
-## California    9.0     276       91 40.6
-## Colorado      7.9     204       78 38.7</code></pre>
+<pre><code>##            Murder Assault UrbanPop Rape      state
+## Alabama      13.2     236       58 21.2    alabama
+## Alaska       10.0     263       48 44.5     alaska
+## Arizona       8.1     294       80 31.0    arizona
+## Arkansas      8.8     190       50 19.5   arkansas
+## California    9.0     276       91 40.6 california
+## Colorado      7.9     204       78 38.7   colorado</code></pre>
 <p><strong>Answer: In general, information about how many arrests were made for murder, assault, and rape per 100,000 people in each state is contained in this dataset. This dataset also contains the percent urban population for each state.</strong></p>
 </div>
 <div id="problem-5" class="section level3">
@@ -426,6 +427,7 @@ mean(dat$Rape)</code></pre>
 <pre class="r"><code>quantile(dat$Rape)</code></pre>
 <pre><code>##     0%    25%    50%    75%   100% 
 ##  7.300 15.075 20.100 26.175 46.000</code></pre>
+<p>?par</p>
 <pre class="r"><code>par(mfrow=c(3,1))
 hist(dat$Murder, main=&quot;Frequency of Murder Arrest Rates in the United States&quot;, xlab = &quot;Murder Arrests per 100,000&quot;, border=&quot;black&quot;, col = &quot;Purple&quot;)
 hist(dat$Assault, main=&quot;Frequency of Assault Arrest Rates in the United States&quot;, xlab = &quot;Assault Arrests per 100,000&quot;, border=&quot;black&quot;, col = &quot;Red&quot;)
@@ -434,7 +436,7 @@ hist(dat$Rape, main=&quot;Frequency of Rape Arrest Rates in the United States&qu
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
 <p><strong>Answer: The R command ‘par’ can be used to combine plots into one cohesive graph. </strong></p>
 <p>What can you learn from plotting the histograms together?</p>
-<p><strong>Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a normal distribution. </strong></p>
+<p><strong>Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a bimodal distribution. </strong></p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
@@ -444,15 +446,15 @@ hist(dat$Rape, main=&quot;Frequency of Rape Arrest Rates in the United States&qu
 #this installs the maps package, which allows the program to draw geographical maps.
 #install.packages(&quot;ggplot2&quot;) 
 #this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
-library(&#39;maps&#39;)  
-#this line loads the newly-installed &quot;maps&quot; packages
-library(&#39;ggplot2&#39;) 
+library(maps)  
+#this line loads the newly-installed &quot;maps&quot; package
+library(ggplot2) 
 #this line loads the newly-installed &quot;ggplot2&quot; package
-
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data(&quot;state&quot;)) + 
-  expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)
-#this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. It tells the program to use the Murder data from dat and the new &quot;state&quot; variable that we create in Problem 2. It also indicates the x and y variables such that they are instead reflecting latitude and longitude. </code></pre>
+  expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-12-1.png" width="720" /></p>
+<pre class="r"><code>#this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. It tells the program to use the Murder data from dat and the new &quot;state&quot; variable that we create in Problem 2. It also indicates the x and y variables such that they are instead reflecting latitude and longitude. </code></pre>
 <p>What does this code do? Explain what each line is doing.</p>
 <p><em>Answer is commented out above</em></p>
 <p><span class="math display">\[\\[2in]\]</span></p>
