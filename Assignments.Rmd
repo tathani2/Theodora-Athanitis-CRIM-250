@@ -14,6 +14,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+# install.packages("formatR")
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
 ```
 
 This page contains all of my  assignments for the class.
@@ -123,8 +125,6 @@ mean(dat$Rape)
 median(dat$Rape)
 quantile(dat$Rape)
 ```
-
-?par
 
 ```{r, echo = TRUE, fig.width = 5, fig.height = 8}
 par(mfrow=c(3,1))
