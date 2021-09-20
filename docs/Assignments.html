@@ -346,7 +346,7 @@ div.tocify {
 <p>This page contains all of my assignments for the class.</p>
 <div id="assignment-1" class="section level1">
 <h1>Assignment 1</h1>
-<p><strong>Collaborators: Tori Borlase. </strong></p>
+<p><strong>Collaborators: Tori Borlase and Halle Wasser. </strong></p>
 <div id="problem-1" class="section level3">
 <h3>Problem 1</h3>
 <p>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</p>
@@ -365,6 +365,7 @@ library(datasets)</code></pre>
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
 <pre class="r"><code>names(dat)</code></pre>
 <pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
+<p><strong>Answer: The variables contained in the dataset are Murder, Assualt, UrbanPop (Urban Population), Rape, and state. </strong></p>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
@@ -439,16 +440,21 @@ hist(dat$Rape, main=&quot;Frequency of Rape Arrest Rates in the United States&qu
 <h3>Problem 8</h3>
 <p>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</p>
 <p>Run this code:</p>
-<pre class="r"><code>#install.packages(&quot;maps&quot;)
-#install.packages(&quot;ggplot2&quot;)
-library(&#39;maps&#39;) 
+<pre class="r"><code>#install.packages(&quot;maps&quot;) 
+#this installs the maps package, which allows the program to draw geographical maps.
+#install.packages(&quot;ggplot2&quot;) 
+#this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
+library(&#39;maps&#39;)  
+#this line loads the newly-installed &quot;maps&quot; packages
 library(&#39;ggplot2&#39;) 
+#this line loads the newly-installed &quot;ggplot2&quot; package
 
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data(&quot;state&quot;)) + 
-  expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
+  expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)
+#this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. It tells the program to use the Murder data from dat and the new &quot;state&quot; variable that we create in Problem 2. It also indicates the x and y variables such that they are instead reflecting latitude and longitude. </code></pre>
 <p>What does this code do? Explain what each line is doing.</p>
-<p>Answer:</p>
+<p><em>Answer is commented out above</em></p>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>

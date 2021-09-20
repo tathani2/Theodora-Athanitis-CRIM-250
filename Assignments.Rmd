@@ -1,13 +1,15 @@
 ---
 title: "Assignments"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '1'
   html_document:
-    toc: true
-    toc_float: true
-    collapsed: false
-    number_sections: false
+    toc: yes
+    toc_float: yes
+    collapsed: no
+    number_sections: no
     toc_depth: 1
-    #code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +20,7 @@ This page contains all of my  assignments for the class.
 
 # Assignment 1
 
-**Collaborators: Tori Borlase. **
+**Collaborators: Tori Borlase and Halle Wasser. **
 
 ### Problem 1 
 
@@ -55,6 +57,8 @@ List the variables contained in the dataset `USArrests`.
 ```{r}
 names(dat)
 ```
+
+**Answer: The variables contained in the dataset are Murder, Assualt, UrbanPop (Urban Population), Rape, and state. **
 
 ### Problem 3 
 
@@ -140,19 +144,24 @@ In the console below (not in text), type `install.packages("maps")` and press En
 Run this code:
 
 ```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
-#install.packages("maps")
-#install.packages("ggplot2")
-library('maps') 
+#install.packages("maps") 
+#this installs the maps package, which allows the program to draw geographical maps.
+#install.packages("ggplot2") 
+#this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
+library('maps')  
+#this line loads the newly-installed "maps" packages
 library('ggplot2') 
+#this line loads the newly-installed "ggplot2" package
 
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data("state")) + 
   expand_limits(x=map_data("state")$long, y=map_data("state")$lat)
+#this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. It tells the program to use the Murder data from dat and the new "state" variable that we create in Problem 2. It also indicates the x and y variables such that they are instead reflecting latitude and longitude. 
 ```
 
 What does this code do? Explain what each line is doing.
 
-Answer:
+*Answer is commented out above*
 
 $$\\[2in]$$
 
