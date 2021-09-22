@@ -361,6 +361,7 @@ library(datasets)</code></pre>
 <h3>Problem 2</h3>
 <p>Use this command to make the state names into a new variable called State.</p>
 <pre class="r"><code>dat$state &lt;- tolower(rownames(USArrests))</code></pre>
+<p><strong>Now, the state names have become a new variable (called “state”)</strong></p>
 <p>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</p>
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
 <pre class="r"><code>names(dat)</code></pre>
@@ -370,16 +371,15 @@ library(datasets)</code></pre>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
 <p>What type of variable (from the DVB chapter) is <code>Murder</code>?</p>
-<p><strong>Answer: According to the DVB chapter, Murder is a quantitative variable because it measures how many murder arrests were made per 100,000 people</strong></p>
+<p><strong>Answer: According to the DVB chapter, Murder is a quantitative variable because it measures how many murder arrests were made per 100,000 people.</strong></p>
 <p>What R Type of variable is it?</p>
 <pre class="r"><code>class(dat$Murder)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<p><strong>Answer: The typeof() function just tells us what type of object is within the parenthesis. Therefore, although the R output states that “Murder” is a character, it is actually a numeric variable</strong></p>
+<p><strong>Answer: By using the class() function, we find that Murder is a numeric variable in R.</strong></p>
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
 <p>What information is contained in this dataset, in general? What do the numbers mean?</p>
-<p>?USArrests</p>
 <pre class="r"><code>head(dat)</code></pre>
 <pre><code>##            Murder Assault UrbanPop Rape      state
 ## Alabama      13.2     236       58 21.2    alabama
@@ -388,12 +388,12 @@ library(datasets)</code></pre>
 ## Arkansas      8.8     190       50 19.5   arkansas
 ## California    9.0     276       91 40.6 california
 ## Colorado      7.9     204       78 38.7   colorado</code></pre>
-<p><strong>Answer: In general, information about how many arrests were made for murder, assault, and rape per 100,000 people in each state is contained in this dataset. This dataset also contains the percent urban population for each state.</strong></p>
+<p><strong>Answer: Firstly, it’s important to note that this data was collected/released in 1973. In general, information about how many arrests were made for murder, assault, and rape per 100,000 people in each state is contained in this dataset. This dataset also contains the percentages of the population that reside in urban areas within each state. Although this data set is just a data set that comes with R and is generally used for practice, it teaches beginners to be sensitive about the analyses that they conduct using R. In this case specifically, the data points are not just numbers; rather, they represent people in the real world that were arrested for specific crimes. Thus, this data teaches us to be cognizant of the conclusions and inferences that are drawn from our calculations/analyses.</strong></p>
 </div>
 <div id="problem-5" class="section level3">
 <h3>Problem 5</h3>
 <p>Draw a histogram of <code>Murder</code> with proper labels and title.</p>
-<pre class="r"><code>hist(dat$Murder, main = &quot;Frequency of Murder Arrest Rates in the United States&quot;,
+<pre class="r"><code>hist(dat$Murder, main = &quot;Frequency of Murder Arrest Rates in the United States (1973)&quot;,
     xlab = &quot;Murder Arrests per 100,000&quot;, border = &quot;black&quot;, col = &quot;blue&quot;,
     xlim = c(0, 20))</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
@@ -401,73 +401,91 @@ library(datasets)</code></pre>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
 <p>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</p>
-<pre class="r"><code>mean(dat$Murder)</code></pre>
-<pre><code>## [1] 7.788</code></pre>
-<pre class="r"><code>median(dat$Murder)</code></pre>
-<pre><code>## [1] 7.25</code></pre>
-<pre class="r"><code>quantile(dat$Murder)</code></pre>
-<pre><code>##     0%    25%    50%    75%   100% 
-##  0.800  4.075  7.250 11.250 17.400</code></pre>
-<p><strong>Answer: The mean and median of “Murder” are 7.788 and 7.25, respectively. The mean is the average of all the data points (i.e. the sum of all the data values divided by the number of values). The median is the middle value when the data is arranged in order and it provides information regarding robustness. A quartile is a type of quantile that divides the data set into 4 (roughly) equally-sized parts (i.e. quarters) when the data is arranged from smallest to largest value. Therefore, quartiles serve to measure the spread of values above and below the mean. R gives us the 1st and 3rd quartiles because the 2nd quartile is the same as the median. As you can see in the output above, the value associated with 50% is the same as the median (because 50% of the values in the data set are above this value). </strong></p>
+<pre class="r"><code>summary(dat$Murder)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
+<p><strong>Answer: The mean and median of “Murder” are 7.788 and 7.250, respectively. The minimum value is .800, Q1 is 4.075, Q3 is 11.250, and the maximum is 17.400. The mean is the average of all the data points (i.e. the sum of all the data values divided by the number of values). The median is the middle value when the data is arranged in order and it provides information regarding robustness. A quartile is a type of quantile that divides the data set into 4 (roughly) equally-sized parts (i.e. quarters) when the data is arranged from smallest to largest value. Therefore, quartiles serve to measure the spread of values in a given data set (these quartiles include 25%, 50%, 75% and 100%). R only gives us the 1st and 3rd quartiles because the 2nd quartile is the same as the median. As you can see in the output above, the value associated with 50% is the same as the median (because 50% of the values in the data set are above [and below] this value). </strong></p>
 </div>
 <div id="problem-7" class="section level3">
 <h3>Problem 7</h3>
 <p>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three.</p>
 <pre class="r"><code># Assault
-mean(dat$Assault)</code></pre>
-<pre><code>## [1] 170.76</code></pre>
-<pre class="r"><code>median(dat$Assault)</code></pre>
-<pre><code>## [1] 159</code></pre>
-<pre class="r"><code>quantile(dat$Assault)</code></pre>
-<pre><code>##   0%  25%  50%  75% 100% 
-##   45  109  159  249  337</code></pre>
+summary(dat$Assault)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
+<p><strong>For assault arrests, the minimum value is 45.0, the maximum value is 337.0, the median is 159.0, and the mean is 170.8. Furthermore, Q1 is 109.0 and Q3 is 249.0.</strong></p>
 <pre class="r"><code># Rape
-mean(dat$Rape)</code></pre>
-<pre><code>## [1] 21.232</code></pre>
-<pre class="r"><code>median(dat$Rape)</code></pre>
-<pre><code>## [1] 20.1</code></pre>
-<pre class="r"><code>quantile(dat$Rape)</code></pre>
-<pre><code>##     0%    25%    50%    75%   100% 
-##  7.300 15.075 20.100 26.175 46.000</code></pre>
+summary(dat$Rape)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    7.30   15.07   20.10   21.23   26.18   46.00</code></pre>
+<p><strong>For rape arrests, the minimum value is 7.30, the maximum value is 46.00, the median is 20.10, and the mean is 21.23. Furthermore, Q1 is 15.07 and Q3 is 26.18.</strong></p>
 <pre class="r"><code>par(mfrow = c(3, 1))
-hist(dat$Murder, main = &quot;Frequency of Murder Arrest Rates in the United States&quot;,
+hist(dat$Murder, main = &quot;Frequency of Murder Arrest Rates in the United States (1973)&quot;,
     xlab = &quot;Murder Arrests per 100,000&quot;, border = &quot;black&quot;, col = &quot;Purple&quot;)
-hist(dat$Assault, main = &quot;Frequency of Assault Arrest Rates in the United States&quot;,
+hist(dat$Assault, main = &quot;Frequency of Assault Arrest Rates in the United States (1973)&quot;,
     xlab = &quot;Assault Arrests per 100,000&quot;, border = &quot;black&quot;, col = &quot;Red&quot;)
-hist(dat$Rape, main = &quot;Frequency of Rape Arrest Rates in the United States&quot;,
+hist(dat$Rape, main = &quot;Frequency of Rape Arrest Rates in the United States (1973)&quot;,
     xlab = &quot;Rape Arrests per 100,000&quot;, border = &quot;black&quot;, col = &quot;Green&quot;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
-<p><strong>Answer: The R command ‘par’ can be used to combine plots into one cohesive graph. </strong></p>
+<p><strong>Answer: The R command ‘par’ is used to modify how graphs are displayed, allowing plots to be combined into one cohesive graph. For specifically, ‘par’ gives the program parameters to plot it a certain way and then ‘mfrow’ puts it into an array. In this case, the array has 3 rows and 1 column, as denoted in the line of code.</strong></p>
 <p>What can you learn from plotting the histograms together?</p>
-<p><strong>Answer: By plotting the histograms together, we can learn that histograms for Rape and Murder are (relatively) right-skewed whereas the histogram for Assault is closer to a bimodal distribution. </strong></p>
+<p><strong>Answer: By plotting the histograms together, we can learn quite a few things because the distributional differences are displayed very clearly. Firstly, we notice that the number of assault arrests per 100,000 people is significantly higher than both that of murder arrests and rape arrests. Furthermore, we notice that histograms for Rape Arrests and Murder Arrests are unimodal and right-skewed (albeit to different degrees) whereas the histogram for Assault Arrests is closer to a bimodal distribution. </strong></p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
 <p>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</p>
 <p>Run this code:</p>
+<pre class="r"><code># install.packages(&#39;maps&#39;)
+
+# install.packages(&#39;ggplot2&#39;)
+
+library(maps)
+library(ggplot2)
+
+ggplot(dat, aes(map_id = state, fill = Murder)) + geom_map(map = map_data(&quot;state&quot;)) +
+    expand_limits(x = map_data(&quot;state&quot;)$long, y = map_data(&quot;state&quot;)$lat)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-12-1.png" width="720" /></p>
+<p>What does this code do? Explain what each line is doing.</p>
+<p><strong>Answer is shown below. (Unfortunately, it would not allow me to fix the display of the comments next to each line, so if there is difficulty understanding which portion is code and which portion is my explanation, please let me know). </strong></p>
 <pre class="r"><code># install.packages(&#39;maps&#39;) this installs the maps package,
 # which allows the program to draw geographical maps.
+
 # install.packages(&#39;ggplot2&#39;) this installs the ggplot2
 # program, which allows the program to create elegant data
 # visualizations using the Grammar of Graphics. In other
 # words, it allows for very complex plots/graphics to be
 # created within a data frame.
-library(maps)
-# this line loads the newly-installed &#39;maps&#39; package
-library(ggplot2)
-# this line loads the newly-installed &#39;ggplot2&#39; package
-ggplot(dat, aes(map_id = state, fill = Murder)) + geom_map(map = map_data(&quot;state&quot;)) +
-    expand_limits(x = map_data(&quot;state&quot;)$long, y = map_data(&quot;state&quot;)$lat)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-12-1.png" width="720" /></p>
-<pre class="r"><code># this long line of code reflects the 3 fundamental parts
-# of the ggplot: data, aesthetics, and geometry. It tells
-# the program to use the Murder data from dat and the new
-# &#39;state&#39; variable that we create in Problem 2. It also
-# indicates the x and y variables such that they are
-# instead reflecting latitude and longitude.</code></pre>
-<p>What does this code do? Explain what each line is doing.</p>
-<p><em>Answer is commented out above</em></p>
+
+# library(maps) this line loads the newly-installed &#39;maps&#39;
+# package
+
+# library(ggplot2) this line loads the newly-installed
+# &#39;ggplot2&#39; package
+
+# ggplot(dat, aes(map_id=state, fill=Murder)) +
+# geom_map(map=map_data(&#39;state&#39;)) +
+# expand_limits(x=map_data(&#39;state&#39;)$long,
+# #y=map_data(&#39;state&#39;)$lat)
+
+# this long line of code reflects the 3 fundamental parts
+# of the ggplot: data, aesthetics, and geometry. The first
+# parameter tells the program to use the &#39;dat&#39; dataset. It
+# then tells the program to use the Murder data from &#39;dat&#39;
+# and the new &#39;state&#39; variable that we create in Problem 2
+# to create the aesthetic element of the plot. Together, it
+# uses essentially signals that the mapping aesthetic
+# layout should be based on the state variable while the
+# color of each state (i.e. the respective shade of blue)
+# is determined by the value associated with the number of
+# murder arrests. The last part of this line of code
+# indicates that the x and y limits of the plot should
+# reflect the latitude and longitude values of the states.
+# Collectively, each portion of this line of code plays a
+# role in displaying a colorful map of the United States,
+# whether different shades of blue represent different
+# numbers of Murder arrests across the United States in
+# 1973.</code></pre>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>
