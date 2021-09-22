@@ -163,23 +163,23 @@ What does this code do? Explain what each line is doing.
 **Answer is shown below. (Unfortunately, it would not allow me to fix the display of the comments next to each line, so if there is difficulty understanding which portion is code and which portion is my explanation, please let me know). **
 
 ```{r, eval = TRUE, fig.width = 7.5, fig.height = 4}
-#install.packages("maps") 
-#this installs the maps package, which allows the program to draw geographical maps.
+# install.packages("maps") 
+# this installs the maps package, which allows the program to draw geographical maps.
 
-#install.packages("ggplot2") 
-#this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
+# install.packages("ggplot2") 
+# this installs the ggplot2 program, which allows the program to create elegant data visualizations using the Grammar of Graphics. In other words, it allows for very complex plots/graphics to be created within a data frame. 
 
-#library(maps)
-#this line loads the newly-installed "maps" package
+# library(maps)
+# this line loads the newly-installed "maps" package
 
-#library(ggplot2)
-#this line loads the newly-installed "ggplot2" package
+# library(ggplot2)
+# this line loads the newly-installed "ggplot2" package
 
-#ggplot(dat, aes(map_id=state, fill=Murder)) + 
+# ggplot(dat, aes(map_id=state, fill=Murder)) + 
 #  geom_map(map=map_data("state")) + 
-#  expand_limits(x=map_data("state")$long, #y=map_data("state")$lat)
+#  expand_limits(x=map_data("state")$long,  y=map_data("state")$lat)
 
-#this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. The first parameter tells the program to use the 'dat' dataset. It then tells the program to use the Murder data from 'dat' and the new "state" variable that we create in Problem 2 to create the aesthetic element of the plot. Together, it uses essentially signals that the mapping aesthetic layout should be based on the state variable while the color of each state (i.e. the respective shade of blue) is determined by the value associated with the number of murder arrests. The last part of this line of code indicates that the x and y limits of the plot should reflect the latitude and longitude values of the states. Collectively, each portion of this line of code plays a role in displaying a colorful map of the United States, whether different shades of blue represent different numbers of Murder arrests across the United States in 1973. 
+# this long line of code reflects the 3 fundamental parts of the ggplot: data, aesthetics, and geometry. The first parameter tells the program to use the 'dat' dataset. It then tells the program to use the Murder data from 'dat' and the new "state" variable that we create in Problem 2 to create the aesthetic element of the plot. Together, it uses essentially signals that the mapping aesthetic layout should be based on the state variable while the color of each state (i.e. the respective shade of blue) is determined by the value associated with the number of murder arrests. The last part of this line of code indicates that the x and y limits of the plot should reflect the latitude and longitude values of the states. Collectively, each portion of this line of code plays a role in displaying a colorful map of the United States, whether different shades of blue represent different numbers of Murder arrests across the United States in 1973. 
 ```
 
 $$\\[2in]$$
