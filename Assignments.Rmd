@@ -1240,7 +1240,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_text(aes(label = label), data = label, vjust = "top", hjust = "right")
 ```
 
-**In this code, we create a new dataframe by summarizing the maximum and minumum values of x and y. The later portion of this code essentially allows you to choose where you would like your label/text to appear on the plot. In this case, the code wants to title to appear in the top right corner of the screen, so the summarize() function was useful in ensuring that the text does not cover up any datapoints, making them not visible and, in effect, making it a poor/ineffecitve plot. It is important to note that, in the last line of code, "vjust" refers to the vertical adjustment made to the location of the label whereas "hjust" refers to the horizontal adjustment.**
+**In this code, we create a new dataframe by summarizing the maximum and minimum values of x and y. The later portion of this code essentially allows you to choose where you would like your label/text to appear on the plot. In this case, the code wants to title to appear in the top right corner of the screen, so the summarize() function was useful in ensuring that the text does not cover up any datapoints, making them not visible and, in effect, making it a poor/ineffecitve plot. It is important to note that, in the last line of code, "vjust" refers to the vertical adjustment made to the location of the label whereas "hjust" refers to the horizontal adjustment.**
 
 ```{r}
 label <- tibble(
