@@ -740,9 +740,9 @@ $$\\[2in]$$
 # install.packages("viridis")
 # install.packages("ggrepel")
 # install.packages("tidyverse")
-# library(tidyverse)
-# library(ggplot2)
-# library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
 data(mpg)
 mpg
 ?mpg
@@ -938,10 +938,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 **In this code, we see that there are additional arguments in the second line of code. Essentially, what this is doing is overriding the original instructions/parameters that were specified in the first line of code.**
 
 ```{r}
-# ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-#  geom_point(mapping = aes(color = class)) + 
-#  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
-  # this chunk had to be commented out because there was an issue with the "subcompact" class
+ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
 ```
 
 **The filter function, which is discussed later, is used to isolate the subcompact car class in the geom_smooth layer. Thus, the overall argument in the first line is only overridden in this one layer because it is within the layer's (). Thus, the smooth line is only created for the one value of the class variable and not for the others. **
@@ -983,19 +982,17 @@ ggplot(data = diamonds) +
 **This is here to show that stat_count() and geom_bar() are often used interchangeably (i.e. they create the exact same plot). This is because each stat has a default geom and each geom has a default stat. **
 
 ```{r}
-# demo <- tribble(
-#  ~cut,         ~freq,
-#  "Fair",       1610,
-#  "Good",       4906,
-#  "Very Good",  12082,
-#  "Premium",    13791,
-#  "Ideal",      21551
-# )
+ demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+ )
 
-# ggplot(data = demo) +
-#  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
-
-#This chunk had to be commented out because there was an error with the tribble function
+ ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
 ```
 
 **This chunk displays how the default pairing between stat and geom is overridden. Instead of dispalying how many times the cut appears, it actually measured by another factor that has been labeled "identity" in this exercise. Here, the high of the bars is related to the raw value of the y variable. **
@@ -1162,113 +1159,107 @@ ggplot(mpg, aes(displ, hwy)) +
 **NOTE: I combined the codes that were included in the reading so that they can be discussed together instead of having to replot them each time). The first line of code here simply creates the ggplot using mpg as the dataset and displ and hwy as the variables that are layered onto the created plot. The second line makes it so that each class (a third variable of interest) is given its own color, making the points more distinguishable and such that the three variables are clearly displayed in relation to each other. The third line of code is a smoothed conditional means argument. What this does is it makes it easier to see patterns when there is overplotting. The "se=FALSE" portion of this line essentially indicates that the confidence interval around smooth should not be displayed. The last line couple lines of code (which relate to the labs() function) allow you to create labels for the plot. In this case, it gives the graph a main title, a subtitle (which gives additional details directly beneath the main title), a caption (which describes the data source), and more specific axis and key labels/titles (i.e., short variable names are replaced with their descriptions and units such that the plot is readable and understandable without more information).**
 
 ```{r}
-# df <- tibble(
-#  x = runif(10),
-#  y = runif(10)
-# )
-# ggplot(df, aes(x, y)) +
-#  geom_point() +
-#  labs(
-#    x = quote(sum(x[i] ^ 2, i == 1, n)),
-#    y = quote(alpha + beta + frac(delta, theta))
-#  )
-
-#This chunk had to be commented out because of an error with tibble()
+ df <- tibble(
+  x = runif(10),
+  y = runif(10)
+ )
+ ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(sum(x[i] ^ 2, i == 1, n)),
+    y = quote(alpha + beta + frac(delta, theta))
+  )
 ```
 
 **The first portion of this code is simply loading the x and y values into a datafram that can be used for the ggplot plot. The next line of code does exactly as discussed before, but now instead of using the dataset "mpg", we are using the x and y values that were put into the dataframe (df) to plot points. The label portion of this code allows you to create mathematical equations rather than including words/text by using "quote" instead of quotation marks.**
 
 ```{r}
-# best_in_class <- mpg %>%
-#  group_by(class) %>%
-#  filter(row_number(desc(hwy)) == 1)
+best_in_class <- mpg %>%
+  group_by(class) %>%
+  filter(row_number(desc(hwy)) == 1)
 
-# ggplot(mpg, aes(displ, hwy)) +
-#  geom_point(aes(colour = class)) +
-#  geom_text(aes(label = model), data = best_in_class)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_text(aes(label = model), data = best_in_class)
 
-#Commented out because %>% error
 ```
 
 **The first couple lines of code essentially identifies with car is the most efficient in each class and puts it into "best_in_class". Then, by using the same general ggplot code that we've discusses thus far, we add the geo_text() layer which will label the "best_in_class" cars and display them on the plot. **
 
 ```{r}
-# ggplot(mpg, aes(displ, hwy)) +
-#  geom_point(aes(colour = class)) +
-#  geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha = 0.5)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+ geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha = 0.5)
 
-#commented out because it relied on best_in_class above
 ```
 
 **This chunk does the same as the above code chunk, but it utilizes geom_label instead of geom_text. Geom_label is sometimes the better choice because it puts the text within a rectangle and raises it slightly above the corresponding point, making it slightly more visible and clean-looking. However, you will notice that this is still not a perfect plot because the two labels in the top left corner are directly ontop of each other, making them ineligible; this will be fixed in the next chunk.**
 
 ```{r}
-# ggplot(mpg, aes(displ, hwy)) +
-#  geom_point(aes(colour = class)) +
-#  geom_point(size = 3, shape = 1, data = best_in_class) +
-#  ggrepel::geom_label_repel(aes(label = model), data = best_in_class)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_point(size = 3, shape = 1, data = best_in_class) +
+  ggrepel::geom_label_repel(aes(label = model), data = best_in_class)
 
-#commented out because it relied on best_in_class above
 ```
 
 **The only difference between this chunk of code and the chunk above is the use of the ggrepel package. By using this package, it adjusts the labels such that they won't overlap, adding a black line connecting the label to the point in instances in which labels are too close together. Furthermore, this addition to this code creates a bolded circle highlight around the point of interest, making it even clearer which label is referring to which point on the plot.**
 
 ```{r}
-# class_avg <- mpg %>%
-#  group_by(class) %>%
-#  summarise(
-#    displ = median(displ),
-#    hwy = median(hwy)
-#  )
+class_avg <- mpg %>%
+group_by(class) %>%
+  summarise(
+    displ = median(displ),
+    hwy = median(hwy)
+  )
 
-# ggplot(mpg, aes(displ, hwy, colour = class)) +
-#  ggrepel::geom_label_repel(aes(label = class),
-#    data = class_avg,
-#    size = 6,
-#    label.size = 0,
-#    segment.color = NA
-#  ) +
-#  geom_point() +
-#  theme(legend.position = "none")
+ggplot(mpg, aes(displ, hwy, colour = class)) +
+  ggrepel::geom_label_repel(aes(label = class),
+    data = class_avg,
+    size = 6,
+    label.size = 0,
+    segment.color = NA
+  ) +
+  geom_point() +
+  theme(legend.position = "none")
 
-#commented out because of %/% issue
 ```
 
 **Once again, there is only a slight adjustment to this string of code (other than assignment a size, label.siz, and segment color, but these are each pretty self-explanatory). The very last line of code completely gets ride of the legend, making it so that the class names are displayed on the plot with the points in the same color as the points themselves. This is arguably not the cleanest representation of this data, but it may be useful for plots of other datasets.**
 
 ```{r}
-# label <- mpg %>%
-#  summarise(
-#    displ = max(displ),
-#    hwy = max(hwy),
-#    label = "Increasing engine size is \nrelated to decreasing fuel economy."
-#  )
+ label <- mpg %>%
+  summarise(
+    displ = max(displ),
+    hwy = max(hwy),
+    label = "Increasing engine size is \nrelated to decreasing fuel economy."
+  )
 
-# ggplot(mpg, aes(displ, hwy)) +
-#  geom_point() +
-#  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right")
+ ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right")
 ```
 
 **In this code, we create a new dataframe by summarizing the maximum and minumum values of x and y. The later portion of this code essentially allows you to choose where you would like your label/text to appear on the plot. In this case, the code wants to title to appear in the top right corner of the screen, so the summarize() function was useful in ensuring that the text does not cover up any datapoints, making them not visible and, in effect, making it a poor/ineffecitve plot. It is important to note that, in the last line of code, "vjust" refers to the vertical adjustment made to the location of the label whereas "hjust" refers to the horizontal adjustment.**
 
 ```{r}
-#label <- tibble(
-#  displ = Inf,
-#  hwy = Inf,
-#  label = "Increasing engine size is \nrelated to decreasing fuel economy."
-#)
+label <- tibble(
+  displ = Inf,
+  hwy = Inf,
+  label = "Increasing engine size is \nrelated to decreasing fuel economy."
+)
 
-# ggplot(mpg, aes(displ, hwy)) +
-#  geom_point() +
-#  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right")
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right")
 ```
 
 **The first portion of this code creates the label that is used in the later half (one that we've already discussed above). "Inf" essentially tells the program to place the label flush with the borders of the plot. The "/n" that you see in the label text denotes where you want to sentence/text to cut to the next line. **
 
 ```{r}
-# "Increasing engine size is related to decreasing fuel economy." %>%
-#  stringr::str_wrap(width = 40) %>%
-#  writeLines()
+"Increasing engine size is related to decreasing fuel economy." %>%
+  stringr::str_wrap(width = 40) %>%
+  writeLines()
 #> Increasing engine size is related to
 #> decreasing fuel economy.
 ```
@@ -1279,7 +1270,7 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(colour = class))
 
-#Just to show that the above code is the same as the one below this line...proving that ggplot2 adds scales automatically when it is not specified. 
+#Just to show that the above code is the same as the one below this line...proving that ggplot2 adds scales automatically when they are not specified. 
 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(colour = class)) +
@@ -1288,7 +1279,7 @@ ggplot(mpg, aes(displ, hwy)) +
   scale_colour_discrete()
 ```
 
-**It is important to note here that, when specifying the scale, "_" must be used to specify the name of the aesthetic and the name of the scale. The default r scales are named based on the variable type (i.e. continuous, discrete, datetime, or date). There are also non-default scales that will be shown later in the assignment**
+**It is important to note here that, when specifying the scale, "_" must be used to specify the name of the aesthetic and the name of the scale. The default r scales are named based on the variable type (i.e. continuous, discrete, datetime, or date). There are also non-default scales that will be shown later in the assignment. **
 
 ```{r}
 ggplot(mpg, aes(displ, hwy)) +
@@ -1308,14 +1299,12 @@ ggplot(mpg, aes(displ, hwy)) +
 **By setting the scale to "NULL", we remove the entire label. (This is typically used when plots are used for exact numbers that cannot be published).**
 
 ```{r}
-# presidential %>%
-#  mutate(id = 33 + row_number()) %>%
-#  ggplot(aes(start, id)) +
-#    geom_point() +
-#    geom_segment(aes(xend = end, yend = id)) +
-#    scale_x_date(NULL, breaks = presidential$start, date_labels = "'%y")
-
-#commented out because of %/% issue
+presidential %>%
+  mutate(id = 33 + row_number()) %>%
+  ggplot(aes(start, id)) +
+    geom_point() +
+    geom_segment(aes(xend = end, yend = id)) +
+    scale_x_date(NULL, breaks = presidential$start, date_labels = "'%y")
 ```
 
 **This plot uses an interesting set up in order to plot the years in which each US president was in office. By using "scale_x_date", we are able to note that the x value is meant to display the range of years, by denoting the presidential state date and the end date, creating the dots following by lines that correspond to the years. **
@@ -1382,44 +1371,38 @@ ggplot(mpg, aes(displ, hwy)) +
 **The addition to this line of code is the distinction of a shape that is also included in the legend. This allows for 2 types of distinctions between data point types (i.e., not only can they be distinguished from each other by color, but if someone has a form of colorblindness that still makes it difficult to notice differences, they can rely on the difference in shape). It is interesting to note that the use of the shape mapping technique would allow for distinction between data point even in the absense of color (i.e., when the plot is in black and white).**
 
 ```{r}
-# presidential %>%
-#  mutate(id = 33 + row_number()) %>%
-#  ggplot(aes(start, id, colour = party)) +
-#    geom_point() +
-#    geom_segment(aes(xend = end, yend = id)) +
-#    scale_colour_manual(values = c(Republican = "red", Democratic = "blue"))
-
-#commented out because of %/% error
+presidential %>%
+  mutate(id = 33 + row_number()) %>%
+  ggplot(aes(start, id, colour = party)) +
+    geom_point() +
+    geom_segment(aes(xend = end, yend = id)) +
+    scale_colour_manual(values = c(Republican = "red", Democratic = "blue"))
 ```
 
 **Similarly, we can use "scale_colour_manual" for predefined values and colors. In this case, you can assign "Republican" and "Democrat" to red and blue, respectively (as they are commonly understood in US politics). **
 
 ```{r}
-# df <- tibble(
-#  x = rnorm(10000),
-#  y = rnorm(10000)
-# )
-# ggplot(df, aes(x, y)) +
-#  geom_hex() +
-#  coord_fixed()
+df <- tibble(
+  x = rnorm(10000),
+  y = rnorm(10000)
+)
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  coord_fixed()
 
-# ggplot(df, aes(x, y)) +
-#  geom_hex() +
-#  viridis::scale_fill_viridis() +
-#  coord_fixed()
-
-#commented out because of tibble() error
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  viridis::scale_fill_viridis() +
+  coord_fixed()
 ```
 
 **The code above first creates a dataframe for vectors of x and y of 10000 that are normally distributed. Then, a ggplot is creating layering this dataframe on the plot. The first ggplot code simply creates a hexogonal field where the values are assigned to different shades of blue. In the second ggplot code, the viridis package is used to create a gradient of different colors are are more easily distinguished from each other. **
 
 ```{r}
-# ggplot(df, aes(x, y)) +
-#  geom_hex() +
-#  scale_colour_gradient(low = "white", high = "red") +
-#  coord_fixed()
-
-#commented out because it relies on dataframe that was commented out earlier
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  scale_colour_gradient(low = "white", high = "red") +
+  coord_fixed()
 ```
 
 **This code doesn't override the default scale because we did not provide a scale ourselves.**
@@ -1430,44 +1413,40 @@ ggplot(mpg, mapping = aes(displ, hwy)) +
   geom_smooth() +
   coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))
 
-# mpg %>%
-#  filter(displ >= 5, displ <= 7, hwy >= 10, hwy <= 30) %>%
-#  ggplot(aes(displ, hwy)) +
-#  geom_point(aes(color = class)) +
-#  geom_smooth()
-
-# commented out because of %/% error
+mpg %>%
+  filter(displ >= 5, displ <= 7, hwy >= 10, hwy <= 30) %>%
+  ggplot(aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth()
 ```
 
 **In comparing the 2 plots above, we notice that, by including "coord_cartesian" instead of simply changing the display filter, we get a plot whose smooth curve is far less choppy. Essentially, the coord_cartesian code allows us to zoom in on a region of a plot without losing the smooth fit of the larger (un-zoomed) plot's curve. **
 
 ```{r}
-# suv <- mpg %>% filter(class == "suv")
-# compact <- mpg %>% filter(class == "compact")
+suv <- mpg %>% filter(class == "suv")
+compact <- mpg %>% filter(class == "compact")
 
-# ggplot(suv, aes(displ, hwy, colour = drv)) +
-#  geom_point()
+ggplot(suv, aes(displ, hwy, colour = drv)) +
+  geom_point()
 
-# ggplot(compact, aes(displ, hwy, colour = drv)) +
-#  geom_point()
+ggplot(compact, aes(displ, hwy, colour = drv)) +
+  geom_point()
 
-# x_scale <- scale_x_continuous(limits = range(mpg$displ))
-# y_scale <- scale_y_continuous(limits = range(mpg$hwy))
-# col_scale <- scale_colour_discrete(limits = unique(mpg$drv))
+x_scale <- scale_x_continuous(limits = range(mpg$displ))
+y_scale <- scale_y_continuous(limits = range(mpg$hwy))
+col_scale <- scale_colour_discrete(limits = unique(mpg$drv))
 
-# ggplot(suv, aes(displ, hwy, colour = drv)) +
-#  geom_point() +
-#  x_scale +
-#  y_scale +
-#  col_scale
+ggplot(suv, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  x_scale +
+  y_scale +
+  col_scale
 
-# ggplot(compact, aes(displ, hwy, colour = drv)) +
-#  geom_point() +
-#  x_scale +
-#  y_scale +
-#  col_scale
-
-# commented out because of %/% error
+ggplot(compact, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  x_scale +
+  y_scale +
+  col_scale
 ```
 
 **The first two plots here are simply used to show that it is difficult to compare when plots do not share the same axis limits. Thus, we use "scale_x_continuous" and "scale_y_continuous" to define ranges that can be used for both plots in order to extract similarities and differences. Thus the code for the last two plots simply include the created x_scale and y_scale as a parameter in the function. **
