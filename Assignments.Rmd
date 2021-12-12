@@ -1604,6 +1604,7 @@ While this analysis does not show a relationship between crime frequency on coll
 
 Figure 3. Directed Acyclic Graph of the relationship between state political party affiliation, crime type and frequency on campus, and other intermediary factors.
 
+**The above figure could not be displayed because we used an external website to make the DAG**
 
 ## Final Discussion
 
