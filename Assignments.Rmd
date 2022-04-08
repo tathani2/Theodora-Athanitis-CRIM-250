@@ -191,7 +191,7 @@ $$\\[2in]$$
 Set your working directory to the folder where you downloaded the data.
 
 ```{r}
-setwd("/Users/theoathanitis/Desktop/CRIM 250/data sets")
+# setwd("/Users/theoathanitis/Desktop/CRIM 250/data sets")
 ```
 
 Read the data
